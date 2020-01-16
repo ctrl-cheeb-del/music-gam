@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>no</title>
+  <link rel="stylesheet" href="index.css">
+
+
+</head>
+
+<body>
+  <div id="app">
+
+    <h1>SongPop</h1>
+    <h2>Score: <span id="score">0</span></h2>
+    <p>Fill out the song name</p>
+<!--uses basic html for the application front page with a span for score-->
+
+      <span id="current-track-name"></span> by <span id="current-artist">Loading...</span>
+    </p>
+    <input id="song-name" placeholder="Enter song name..." />
+  </div>
+  <div id="particles-js"></div>
+<!--calls particles.js for a effect to follow the mouse cursor for aesthetic-->
+
+  <script>
+    require("particles.js");
+    particlesJS.load('particles-js', 'particles.json');
+    const similar = (a, b) => {
+      let equivalency = 0;
+      let minLength = (a.length > b.length) ? b.length : a.length;
+      let maxLength = (a.length < b.length) ? b.length : a.length;
+      for (let i = 0; i < minLength; i++) {
+        if (a[i] == b[i]) {
+          equivalency++;
+        }
+      }
+//requires particles.js inside the renderer and creates varibales a and b
+
+      let weight = equivalency / maxLength;
+      return (weight * 100);
+    }
+
+    const { add, b, c, ct, cnp } = require("smpldm");
+    const input = b("song-name");
+    const scoreEl = b("score");
+    const appEl = b("app");
+    const currentTrackName = b("current-track-name");
+    const currentArtist = b("current-artist");
+    const fs = require("fs");
+//uses smpldm to simplify code and creates score variables as well as artists etc
+
+    let currentSong;
+    let score = 0;
+
+    const file = fs.readFileSync(__dirname + "/songs.json").toString();
+    const ALL_SONGS = JSON.parse(file).sort(() => Math.random() - 0.5);
+
+    const update = () => {
+      console.log("Updating");
+      score++;
+      scoreEl.innerHTML = score;
+      currentSong = ALL_SONGS[Math.floor(Math.random() * ALL_SONGS.length)];
+      currentArtist.innerHTML = currentSong.artist;
+  
+
+      currentTrackName.innerHTML = currentSong.name.split("").map(x => {
+        return x === " " ? " " : Math.random() > 0.3 ? "_" : x;
+      }).join("");
+
+      input.value = "";
+    }
+//uses math.random to decide how much of the song name is blanked out amd what letters available 
+
+
+    const negativeUpdate = () => {
+      score--;
+      scoreEl.innerHTML = score;
+    }
+
+    update();
+
+    input.addEventListener("keyup", e => {
+      console.log(e.key);
+      if (e.key !== "Enter") return;
+      const { value: inputValue } = input;
+      console.log(inputValue);
+      const result = similar(inputValue.toLowerCase(), currentSong.name.toLowerCase());
+
+      if (result > 70) {
+        console.log("adding", currentSong);
+        update();
+        document.body.classList.add("active");
+
+        setTimeout(() => {
+          document.body.classList.remove("active");
+        }, 1000);
+      } else {
+        negativeUpdate();
+        document.body.classList.add("wrong");
+
+        setTimeout(() => {
+          document.body.classList.remove("wrong");
+        }, 1000);
+      }
+    });
+//detects that if over 70% of the letters match then the point will be given to avoid small spelling errors and loss of points
+   
+  </script>
+
+</body>
+
+</html>

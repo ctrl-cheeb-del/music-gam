@@ -1,0 +1,67 @@
+$bg: #50d490;
+$accent: #50d490;
+$font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+body {
+    font-family: $font;
+    margin: auto;
+    padding: 10%;
+    transition: all 1s;
+    background-color: white;
+    color: black;
+
+    
+    &.active {
+      background: $bg;
+      color: darken($accent, 30%);
+
+      input {
+        background: darken($accent, 30%);
+        color: white;
+      }
+    }
+
+    &.wrong {
+      background: invert($bg);
+      color: invert(darken($accent, 30%));
+
+      input {
+        background: invert(darken($accent, 30%));
+        color: invert(white);
+        border: 1px solid invert($accent);
+      }
+    }
+
+    input {
+      background: none;
+      display: inline-block;
+      border: 1px solid $accent;
+      border-radius: 3px;
+      padding: 5px 25px;
+      font-family: $font;
+      outline: none;
+      transition: all 1s;
+    }
+}
+
+#current-track-name {
+  font-family: "Courier New", "Courier", monospace;
+  letter-spacing: 2px;
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#app {
+  z-index: 10;
+
+  input {
+    position: relative;
+    z-index: 9999;
+  }
+}

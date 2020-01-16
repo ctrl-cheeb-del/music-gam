@@ -1,0 +1,65 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: auto;
+  padding: 10%;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  background-color: white;
+  color: black;
+}
+
+body.active {
+  background: #50d490;
+  color: #1b7044;
+}
+
+body.active input {
+  background: #1b7044;
+  color: white;
+}
+
+body.wrong {
+  background: #af2b6f;
+  color: #e48fbb;
+}
+
+body.wrong input {
+  background: #e48fbb;
+  color: black;
+  border: 1px solid #af2b6f;
+}
+
+body input {
+  background: none;
+  display: inline-block;
+  border: 1px solid #50d490;
+  border-radius: 3px;
+  padding: 5px 25px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  outline: none;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+#current-track-name {
+  font-family: "Courier New", "Courier", monospace;
+  letter-spacing: 2px;
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#app {
+  z-index: 10;
+}
+
+#app input {
+  position: relative;
+  z-index: 9999;
+}
+/*# sourceMappingURL=index.css.map */
